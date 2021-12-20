@@ -47,7 +47,7 @@ I use [**Shields IO**](https://shields.io/) for making badges. It is a simple an
 
 Here is a random GIF as a placeholder. -->
 
-![Demo](/Users/yvonne/Documents/GitHub/landingpage/demo.png)
+![Demo](/demo.png)
 
 
 # Table of contents
