@@ -45,9 +45,9 @@ I use [**Shields IO**](https://shields.io/) for making badges. It is a simple an
 
 <!-- After you have written about your project, it is a good idea to have a demo/preview(**video/gif/screenshots** are good options) of your project so that people can know what to expect in your project. You could also add the demo in the previous section with the product description.
 
-Here is a random GIF as a placeholder.
+Here is a random GIF as a placeholder. -->
 
-![Random GIF](/Users/yvonne/Documents/GitHub/landingpage/demo.png) -->
+![Demo](/Users/yvonne/Documents/GitHub/landingpage/demo.png)
 
 
 # Table of contents
