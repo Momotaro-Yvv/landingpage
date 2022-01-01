@@ -22,8 +22,10 @@
  * Define Global Variables
  *
 */
-const navigation = document.getElementById('navbar__list');
+
+//ADD ALL SECTIONS INTO NAVBAR
 const sections = document.querySelectorAll('section');
+const navBarHolder = document.getElementById('navbar__list');
 
 /**
  * End Global Variables
@@ -31,29 +33,6 @@ const sections = document.querySelectorAll('section');
  *
 */
 
-
-
-/**
- * End Helper Functions
- * Begin Main Functions
- *
-*/
-
-// build the nav
-function navBar(){
-    let navBuilder = '';
-    for (const section of sections){
-        // Scroll to anchor ID using scrollTO event
-        navBuilder +=
-        `<li>
-            <a href="#${section.id}"> ${section.dataset.nav} </a>
-        </li>`
-    }
-    navigation.innerHTML = navBuilder;
-    // console.log(navBuilder);
-};
-
-// Add class 'active' to section when near top of viewport
 function offset (section){
     return Math.floor(section.getBoundingClientRect().top);
 };
@@ -62,22 +41,54 @@ function removeActive (section){
     section.classList.remove('your-active-class');
 };
 
-function addActive (conditional,section) {
-    if (conditional){
+function addActive (inview,section) {
+    if (inview){
         section.classList.add('your-active-class');
         section.style.cssText = "font-size: larger";
     }
 };
+
+//loop through all sections and add the section title to nav bar
+function navBarBuilder(){
+    for (const section of sections){
+        const newItem = document.createElement('li');
+        newItem.textContent = section.dataset.nav;
+        navBarHolder.appendChild(newItem);
+    }
+};
+
+/**
+ * End Helper Functions
+ * Begin Main Functions
+ *
+*/
+
+//when user click the navbar, the page would scroll to that section
+function scrollToSection(){
+    const headings = document.querySelectorAll('li');
+    for (const heading of headings){
+        heading.addEventListener('click',(event)=>{
+            const sectionNumber = heading.textContent.split(' ')[1];
+            event.preventDefault();
+            const location = document.getElementById('section'+sectionNumber);
+            location.scrollIntoView();
+        });
+    };
+}
+
+//when the user scroll to a certain section, the section change to active
 function sectionActivation(){
     for(const section of sections){
+        //get the location of each section
         const elementOffset = offset(section);
-        console.log(elementOffset);
 
-        inviewport = function(){
+        //judge whether each section is inview based on the location
+        let inview = function(){
             return elementOffset<250 && elementOffset>= -250;
         };
+
         removeActive(section);
-        addActive(inviewport(),section);
+        addActive(inview(),section);
     }
 };
 
@@ -88,7 +99,10 @@ function sectionActivation(){
 */
 
 // Build menu
+navBarBuilder();
+
 // Scroll to section on link click
-navBar();
+scrollToSection();
+
 // Set sections as active
 window.addEventListener('scroll',sectionActivation);
