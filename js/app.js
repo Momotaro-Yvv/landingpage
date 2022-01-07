@@ -39,20 +39,24 @@ function offset (section){
 
 function removeActive (section){
     section.classList.remove('your-active-class');
+    document.getElementById(section.dataset.nav).classList.remove('your-active-heading');
 };
 
 function addActive (inview,section) {
     if (inview){
         section.classList.add('your-active-class');
         section.style.cssText = "font-size: larger";
+        document.getElementById(section.dataset.nav).classList.add('your-active-heading');
     }
 };
+
 
 //loop through all sections and add the section title to nav bar
 function navBarBuilder(){
     for (const section of sections){
         const newItem = document.createElement('li');
         newItem.textContent = section.dataset.nav;
+        newItem.setAttribute("id",section.dataset.nav);
         navBarHolder.appendChild(newItem);
     }
 };
@@ -68,10 +72,14 @@ function scrollToSection(){
     const headings = document.querySelectorAll('li');
     for (const heading of headings){
         heading.addEventListener('click',(event)=>{
+
+
             const sectionNumber = heading.textContent.split(' ')[1];
             event.preventDefault();
             const location = document.getElementById('section'+sectionNumber);
-            location.scrollIntoView();
+            location.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+
+            // removeActiveHeading(heading);
         });
     };
 }
@@ -89,6 +97,7 @@ function sectionActivation(){
 
         removeActive(section);
         addActive(inview(),section);
+
     }
 };
 
